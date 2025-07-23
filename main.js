@@ -2,7 +2,7 @@
 const GITHUB_USERNAME = "DoMung2266";
 const GITHUB_REPO = "NhapKho"; // Tên repo
 const GITHUB_FILEPATH = "products.json"; // Đường dẫn file
-const GITHUB_TOKEN = "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"; // Token cá nhân
+const GITHUB_TOKEN = "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"; // Token cá nhân
 
 const apiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${GITHUB_FILEPATH}`;
 
