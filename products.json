@@ -33,10 +33,18 @@
   },
   {
     "name": "A105",
-    "description": "Khay bộ của ASAHI",
+    "description": "Khay bá» cá»§a ASAHI",
     "price": 23,
     "quantity": 1,
     "image": "",
     "timestamp": "2025-07-23T14:51:32.906Z"
+  },
+  {
+    "name": "A106",
+    "description": "Khay bộ của ASAHI",
+    "price": 232,
+    "quantity": 1,
+    "image": "",
+    "timestamp": "2025-07-23T14:55:42.934Z"
   }
 ]
