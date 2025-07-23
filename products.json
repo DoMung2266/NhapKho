@@ -33,7 +33,7 @@
   },
   {
     "name": "A105",
-    "description": "Khay bÃÂ¡ÃÂ»ÃÂ cÃÂ¡ÃÂ»ÃÂ§a ASAHI",
+    "description": "Khay bÃÂÃÂ¡ÃÂÃÂ»ÃÂÃÂ cÃÂÃÂ¡ÃÂÃÂ»ÃÂÃÂ§a ASAHI",
     "price": 23,
     "quantity": 1,
     "image": "",
@@ -41,7 +41,7 @@
   },
   {
     "name": "A106",
-    "description": "Khay bÃ¡Â»Â cÃ¡Â»Â§a ASAHI",
+    "description": "Khay bÃÂ¡ÃÂ»ÃÂ cÃÂ¡ÃÂ»ÃÂ§a ASAHI",
     "price": 232,
     "quantity": 1,
     "image": "",
@@ -49,7 +49,7 @@
   },
   {
     "name": "A107",
-    "description": "Khay bá» Cá»§a ASAHI",
+    "description": "Khay bÃ¡Â»Â CÃ¡Â»Â§a ASAHI",
     "price": 45,
     "quantity": 1,
     "image": "",
@@ -57,10 +57,18 @@
   },
   {
     "name": "A107",
-    "description": "Khay Bộ Nà",
+    "description": "Khay Bá» NÃ ",
     "price": 53,
     "quantity": 1,
     "image": "",
     "timestamp": "2025-07-23T15:03:55.591Z"
+  },
+  {
+    "name": "A2323",
+    "description": "đâsd",
+    "price": 23,
+    "quantity": 1,
+    "image": "",
+    "timestamp": "2025-07-23T15:05:19.795Z"
   }
 ]
