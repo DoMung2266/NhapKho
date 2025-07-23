@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "name": "A101",
+    "description": "dsad",
+    "price": 123,
+    "quantity": 1,
+    "image": "",
+    "timestamp": "2025-07-23T14:39:39.006Z"
+  }
+]
