@@ -1,8 +1,8 @@
 // ⚙️ Cấu hình GitHub API
-const GITHUB_USERNAME = "your-github-username";
-const GITHUB_REPO = "product-storage"; // Tên repo
+const GITHUB_USERNAME = "DoMung2266";
+const GITHUB_REPO = "NhapKho"; // Tên repo
 const GITHUB_FILEPATH = "products.json"; // Đường dẫn file
-const GITHUB_TOKEN = "ghp_xxx..."; // Token cá nhân
+const GITHUB_TOKEN = "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"; // Token cá nhân
 
 const apiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${GITHUB_FILEPATH}`;
 
