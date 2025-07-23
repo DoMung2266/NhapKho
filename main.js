@@ -1,14 +1,50 @@
 // ⚙️ Cấu hình GitHub API
 const GITHUB_USERNAME = "DoMung2266";
-const GITHUB_REPO = "NhapKho"; // Tên repo
-const GITHUB_FILEPATH = "products.json"; // Đường dẫn file
-const GITHUB_TOKEN = "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"; // Token cá nhân
+const GITHUB_REPO = "NhapKho";
+const GITHUB_FILEPATH = "products.json";
+const GITHUB_TOKEN = "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"; // Gắn token hợp lệ của bạn
 
 const apiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${GITHUB_FILEPATH}`;
 
+// 🔍 Kiểm tra trạng thái repo
+async function checkRepoStatus() {
+  const statusDiv = document.getElementById("status");
+  statusDiv.textContent = "🔎 Đang kiểm tra trạng thái repo...";
+
+  try {
+    const res = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}`, {
+      headers: {
+        Authorization: `Bearer ${GITHUB_TOKEN}`,
+        Accept: "application/vnd.github+json"
+      }
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      console.log("✅ Repo hợp lệ:", data.full_name);
+      return true;
+    } else {
+      statusDiv.textContent = `❌ Không thể truy cập repo: ${data.message}`;
+      return false;
+    }
+  } catch (error) {
+    console.error("❌ Lỗi khi kiểm tra repo:", error);
+    statusDiv.textContent = "❌ Không thể kiểm tra trạng thái repo.";
+    return false;
+  }
+}
+
+// 📤 Xử lý form gửi sản phẩm
 document.getElementById("productForm").addEventListener("submit", async function (e) {
   e.preventDefault();
 
+  const statusDiv = document.getElementById("status");
+
+  // Kiểm tra kết nối repo
+  const validRepo = await checkRepoStatus();
+  if (!validRepo) return;
+
+  // 📝 Lấy dữ liệu sản phẩm từ form
   const name = document.getElementById("name").value.trim();
   const description = document.getElementById("description").value.trim();
   const price = parseInt(document.getElementById("price").value, 10);
@@ -24,11 +60,10 @@ document.getElementById("productForm").addEventListener("submit", async function
     timestamp: new Date().toISOString()
   };
 
-  const statusDiv = document.getElementById("status");
   statusDiv.textContent = "⏳ Đang lưu sản phẩm lên GitHub...";
 
   try {
-    // 📥 Lấy nội dung hiện tại file products.json
+    // 📥 Lấy file JSON hiện tại nếu có
     const res = await fetch(apiUrl, {
       headers: {
         Authorization: `Bearer ${GITHUB_TOKEN}`,
@@ -36,44 +71,57 @@ document.getElementById("productForm").addEventListener("submit", async function
       }
     });
 
-    const fileData = await res.json();
     let currentContent = [];
+    let fileSha = null;
 
-    if (res.ok && fileData.content) {
-      const decoded = atob(fileData.content);
-      currentContent = JSON.parse(decoded);
+    if (res.ok) {
+      const fileData = await res.json();
+
+      if (fileData.content) {
+        const decoded = atob(fileData.content);
+        currentContent = JSON.parse(decoded);
+        fileSha = fileData.sha;
+      }
     }
 
-    // ➕ Thêm sản phẩm mới vào danh sách
+    // ➕ Thêm sản phẩm mới
     currentContent.push(newItem);
 
-    // 🔄 Mã hóa lại dữ liệu thành base64
-    const updatedContent = btoa(JSON.stringify(currentContent, null, 2));
+    // 🔄 Mã hóa UTF-8 nội dung JSON hỗ trợ tiếng Việt
+    const encoder = new TextEncoder();
+    const encoded = encoder.encode(JSON.stringify(currentContent, null, 2));
+    const updatedContent = btoa(String.fromCharCode(...encoded));
 
-    // ✏️ Ghi file mới lên GitHub
+    const payload = {
+      message: `Thêm sản phẩm: ${name}`,
+      content: updatedContent
+    };
+
+    if (fileSha) {
+      payload.sha = fileSha;
+    }
+
+    // ✏️ Ghi nội dung lên GitHub
     const updateRes = await fetch(apiUrl, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${GITHUB_TOKEN}`,
         Accept: "application/vnd.github+json"
       },
-      body: JSON.stringify({
-        message: `Thêm sản phẩm: ${name}`,
-        content: updatedContent,
-        sha: fileData.sha // cần để GitHub xác nhận phiên bản
-      })
+      body: JSON.stringify(payload)
     });
 
     if (updateRes.ok) {
-      statusDiv.textContent = "✅ Sản phẩm đã lưu thành công lên GitHub!";
+      statusDiv.textContent = "✅ Đã lưu thành công lên GitHub!";
       document.getElementById("productForm").reset();
     } else {
       const err = await updateRes.json();
-      statusDiv.textContent = `❌ Lỗi ghi file: ${err.message}`;
+      console.error("❌ GitHub error:", err);
+      statusDiv.textContent = `❌ Lỗi ghi file: ${err.message || "Không rõ lỗi"}`;
     }
 
   } catch (error) {
-    console.error(error);
-    statusDiv.textContent = "❌ Có lỗi xảy ra khi ghi lên GitHub.";
+    console.error("❌ Lỗi ghi GitHub:", error);
+    statusDiv.textContent = "❌ Có lỗi khi kết nối tới GitHub.";
   }
 });
