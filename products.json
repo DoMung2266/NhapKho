@@ -34,5 +34,23 @@
     "soSPTrongThung": 30,
     "ghiChu": "",
     "timestamp": "2025-07-24T04:39:41.652Z"
+  },
+  {
+    "stt": "1",
+    "maSo": "A103",
+    "hang": "Asahi",
+    "tenEN": "Khay bo",
+    "tenVN": "Khay bo",
+    "tenThuongGoi": "Khay bo",
+    "gia": 12,
+    "quyCach": "200x100x12",
+    "hinh": "",
+    "loaiGo": "xa cu",
+    "phanLoai": "Khay",
+    "kichThuocThung": "20x20x20",
+    "khoiLuongThung": "20",
+    "soSPTrongThung": 30,
+    "ghiChu": "",
+    "timestamp": "2025-07-24T04:51:01.436Z"
   }
 ]
