@@ -22,10 +22,19 @@
     }
     input[type="text"],
     input[type="password"],
-    input[type="file"] {
+    input[type="file"],
+    select {
       width: 100%;
       padding: 8px;
       margin-top: 4px;
+    }
+    .row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .row input {
+      flex: 1;
     }
     button {
       margin-top: 20px;
@@ -57,31 +66,37 @@
   <h1>📋 Thêm sản phẩm mới</h1>
 
   <label>🔐 GitHub Token</label>
-  <input type="password" id="tokenInput" placeholder="Nhập token..." />
+  <div class="row">
+    <input type="password" id="tokenInput" placeholder="Nhập token..." />
+    <button onclick="clearToken()">🧹</button>
+  </div>
 
   <label>📌 Mã Số</label>
   <input type="text" id="maSoInput" placeholder="VD: A-101" />
 
   <label>🏢 Hãng</label>
   <select id="hangInput">
-   <option value="">-- Chọn hãng --</option>
-   <option>ASAHI</option>
-   <option>SANWA</option>
-   <option>SADOMAIN</option>
-   <option>HAIDRAGON</option>
-   <option>PAVIDEN</option>
-   <option>KIYODO</option>
-   <option>OSAKA</option>
-   <option>HO</option>
-   <option>TRUNGBUU</option>
-   <option>KhongBiet</option>
-</select>
+    <option value="">-- Chọn hãng --</option>
+    <option>ASAHI</option>
+    <option>SANWA</option>
+    <option>SADOMAIN</option>
+    <option>HAIDRAGON</option>
+    <option>PAVIDEN</option>
+    <option>KIYODO</option>
+    <option>OSAKA</option>
+    <option>HO</option>
+    <option>TRUNGBUU</option>
+    <option>KhongBiet</option>
+  </select>
 
   <label>📦 Quy cách</label>
   <input type="text" id="quyCachInput" placeholder="VD: 300x120x15" />
 
   <label>🌲 Loại gỗ</label>
   <input type="text" id="loaiGoInput" placeholder="VD: beech, xa cu, thong (viết không dấu nha)" />
+
+  <label>📝 Thông tin khác</label>
+  <input type="text" id="khacInput" placeholder="VD: hàng mẫu, ghi chú thêm..." />
 
   <label>📷 Chọn ảnh sản phẩm</label>
   <input type="file" id="imageInput" onchange="showPreview()" />
