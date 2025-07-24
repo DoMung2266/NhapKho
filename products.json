@@ -30,5 +30,13 @@
     "quyCach": "300x144x16",
     "loaiGo": "Xa Cu",
     "timestamp": "2025-07-24T15:26:16.228Z"
+  },
+  {
+    "maSo": "A-102",
+    "hang": "ASAHI",
+    "hinh": "https://raw.githubusercontent.com/DoMung2266/NhapKho/main/images/ASAHI/A-102.jpg",
+    "quyCach": "300x144x20",
+    "loaiGo": "Xa cu",
+    "timestamp": "2025-07-24T15:29:45.228Z"
   }
 ]
