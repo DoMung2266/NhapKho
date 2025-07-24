@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>🔍 Tra cứu sản phẩm</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      max-width: 700px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .back {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .back button {
+      padding: 8px 14px;
+      font-size: 1em;
+      background-color: #888;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .back button:hover {
+      background-color: #555;
+    }
+    .filters {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .filters input,
+    .filters select {
+      flex: 1;
+      padding: 8px;
+      font-size: 1em;
+    }
+    .filters button {
+      padding: 8px 12px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .filters button:hover {
+      background-color: #2980b9;
+    }
+    .info {
+      border: 1px solid #ccc;
+      padding: 12px;
+      border-radius: 6px;
+      margin-top: 20px;
+    }
+    img {
+      max-width: 100%;
+      max-height: 200px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+    }
+    .notFound {
+      color: red;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔍 Tra cứu sản phẩm</h1>
+  <div class="back">
+    <button onclick="window.location.href='index.html'">↩️ Quay về nhập liệu</button>
+  </div>
+
+  <div class="filters">
+    <input type="text" id="searchInput" placeholder="🔎 Mã Số" />
+    <select id="hangFilter">
+      <option value="">🏢 Hãng</option>
+      <option>ASAHI</option>
+      <option>SANWA</option>
+      <option>SADOMAIN</option>
+      <option>HAIDRAGON</option>
+      <option>PAVIDEN</option>
+      <option>KIYODO</option>
+      <option>OSAKA</option>
+      <option>HO</option>
+      <option>TRUNGBUU</option>
+      <option>KhongBiet</option>
+    </select>
+    <select id="goFilter">
+      <option value="">🌲 Loại gỗ</option>
+      <option>beech</option>
+      <option>xa cu</option>
+      <option>thong</option>
+      <!-- bạn có thể thêm nữa -->
+    </select>
+    <button onclick="findProduct()">Tìm</button>
+  </div>
+
+  <div id="result"></div>
+
+  <!-- Dùng chung cấu hình -->
+  <script src="config.js"></script>
+
+  <script>
+    async function findProduct() {
+      const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
+      const hang = document.getElementById("hangFilter").value.trim().toLowerCase();
+      const go = document.getElementById("goFilter").value.trim().toLowerCase();
+      const result = document.getElementById("result");
+      result.innerHTML = "";
+
+      const res = await fetch(apiUrl, {
+        headers: { Accept: "application/vnd.github+json" }
+      });
+
+      if (!res.ok) {
+        result.innerHTML = "<div class='notFound'>❌ Không thể tải dữ liệu từ GitHub.</div>";
+        return;
+      }
+
+      const json = await res.json();
+      const data = JSON.parse(atob(json.content));
+
+      const filtered = data.filter(item => {
+        return (
+          (!keyword || item.maSo?.toLowerCase().includes(keyword)) &&
+          (!hang || item.hang?.toLowerCase() === hang) &&
+          (!go || item.loaiGo?.toLowerCase() === go)
+        );
+      });
+
+      if (filtered.length === 0) {
+        result.innerHTML = "<div class='notFound'>🚫 Không tìm thấy sản phẩm phù hợp!</div>";
+        return;
+      }
+
+      filtered.forEach(item => {
+        result.innerHTML += `
+          <div class="info">
+            <strong>Mã Số:</strong> ${item.maSo || ""}<br />
+            <strong>Hãng:</strong> ${item.hang || ""}<br />
+            <strong>Quy cách:</strong> ${item.quyCach || ""}<br />
+            <strong>Loại gỗ:</strong> ${item.loaiGo || ""}<br />
+            <strong>Ghi chú:</strong> ${item.khac || ""}<br />
+            ${item.hinh ? `<img src="${item.hinh}" alt="Ảnh sản phẩm">` : "Không có ảnh"}
+          </div>
+        `;
+      });
+    }
+  </script>
+
+</body>
+</html>
