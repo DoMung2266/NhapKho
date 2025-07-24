@@ -1,18 +1,1 @@
-[
-  {
-    "name": "A104",
-    "description": "khay bo",
-    "price": 11,
-    "quantity": 1,
-    "image": "",
-    "timestamp": "2025-07-24T04:07:17.565Z"
-  },
-  {
-    "name": "A105",
-    "description": "khay",
-    "price": 22,
-    "quantity": 1,
-    "image": "",
-    "timestamp": "2025-07-24T04:07:35.126Z"
-  }
-]
+[]
