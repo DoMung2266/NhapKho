@@ -28,7 +28,15 @@
     "hang": "ASAHI",
     "hinh": "https://raw.githubusercontent.com/DoMung2266/NhapKho/main/images/ASAHI/A-104.jpg",
     "quyCach": "300x120x15",
-    "loaiGo": "Xà Cừ",
+    "loaiGo": "XÃ  Cá»«",
     "timestamp": "2025-07-24T09:05:11.713Z"
+  },
+  {
+    "maSo": "A-105",
+    "hang": "ASAHI",
+    "hinh": "https://raw.githubusercontent.com/DoMung2266/NhapKho/main/images/ASAHI/A-105.jpg",
+    "quyCach": "300x120x16",
+    "loaiGo": "Xà Cừ",
+    "timestamp": "2025-07-24T09:10:07.930Z"
   }
 ]
