@@ -2,40 +2,33 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <title>📦 Nhập sản phẩm có ảnh</title>
+  <title>📦 Ghi sản phẩm & Upload ảnh</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       font-family: sans-serif;
       padding: 20px;
-      max-width: 100%;
+      max-width: 600px;
       margin: auto;
     }
     h1 {
       text-align: center;
       margin-bottom: 20px;
     }
-    input[type="text"], input[type="number"], input[type="password"] {
-      width: 120px;
-      padding: 4px;
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
     }
+    input[type="text"],
+    input[type="password"],
     input[type="file"] {
-      width: 150px;
-    }
-    table {
-      border-collapse: collapse;
       width: 100%;
-      overflow-x: auto;
-    }
-    th, td {
-      border: 1px solid #999;
-      padding: 6px;
-      text-align: center;
-      vertical-align: middle;
+      padding: 8px;
+      margin-top: 4px;
     }
     button {
       margin-top: 20px;
-      margin-right: 10px;
       padding: 10px 16px;
       font-size: 1em;
       background-color: #3498db;
@@ -47,75 +40,61 @@
       background-color: #2980b9;
     }
     .status {
-      margin-top: 20px;
+      margin-top: 10px;
       font-weight: bold;
-      color: green;
     }
-    #tokenInput {
-      width: 100%;
-      margin-bottom: 1rem;
-      padding: 8px;
+    #previewImage {
+      margin-top: 10px;
+      max-width: 150px;
+      height: auto;
+      display: none;
+      border: 1px solid #ccc;
     }
   </style>
 </head>
 <body>
-  <h1>📋 Nhập sản phẩm kèm hình ảnh</h1>
 
-  <!-- 🔐 Nhập GitHub Token -->
-  <input type="password" id="tokenInput" placeholder="🔐 Nhập GitHub Token..." />
+  <h1>📋 Thêm sản phẩm mới</h1>
 
-  <table id="productTable">
-    <thead>
-      <tr>
-        <th>STT</th>
-        <th>Mã Số</th>
-        <th>Hãng</th>
-        <th>Tên tiếng Anh</th>
-        <th>Tên Tiếng Việt</th>
-        <th>Tên Thường gọi</th>
-        <th>Giá</th>
-        <th>Quy Cách</th>
-        <th>Ảnh sản phẩm</th>
-        <th>Loại Gỗ</th>
-        <th>Phân Loại</th>
-        <th>Kích Thước Thùng</th>
-        <th>Khối Lượng Cả Thùng</th>
-        <th>Số SP/1 Thùng</th>
-        <th>Ghi Chú</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input type="number" /></td>
-        <td><input /></td>
-        <td>
-          <input type="file" onchange="handleImageUpload(this)" />
-          <br />
-          <input class="image-link" />
-        </td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input /></td>
-        <td><input type="number" /></td>
-        <td><input /></td>
-      </tr>
-    </tbody>
-  </table>
+  <label>🔐 GitHub Token</label>
+  <input type="password" id="tokenInput" placeholder="Nhập token..." />
 
-  <button onclick="addRow()">➕ Thêm dòng mới</button>
-  <button onclick="removeLastRow()">❌ Xóa dòng cuối</button>
-  <button onclick="loadProductsFromGitHub()">📥 Tải dữ liệu từ GitHub</button>
-  <button onclick="submitToGitHub()">📤 Lưu toàn bộ lên GitHub</button>
+  <label>📌 Mã Số</label>
+  <input type="text" id="maSoInput" placeholder="VD: A-101" />
 
-  <div class="status" id="status"></div>
+  <label>🏢 Hãng</label>
+  <select id="hangInput">
+   <option value="">-- Chọn hãng --</option>
+   <option>ASAHI</option>
+   <option>SANWA</option>
+   <option>SADOMAIN</option>
+   <option>HAIDRAGON</option>
+   <option>PAVIDEN</option>
+   <option>KIYODO</option>
+   <option>OSAKA</option>
+   <option>HO</option>
+   <option>TRUNGBUU</option>
+   <option>Khac</option>
+</select>
 
+  <label>📦 Quy cách</label>
+  <input type="text" id="quyCachInput" placeholder="VD: 300x120x15" />
+
+  <label>🌲 Loại gỗ</label>
+  <input type="text" id="loaiGoInput" placeholder="VD: beech, xà cừ, thông, ock" />
+
+  <label>📷 Chọn ảnh sản phẩm</label>
+  <input type="file" id="imageInput" onchange="showPreview()" />
+
+  <img id="previewImage" alt="Preview ảnh sản phẩm" />
+
+  <div class="status" id="imageStatus"></div>
+  <div class="status" id="jsonStatus"></div>
+
+  <button onclick="saveProduct()">💾 Ghi sản phẩm + upload ảnh</button>
+
+  <!-- 📂 Script xử lý -->
+  <script src="config.js"></script>
   <script src="main.js"></script>
 </body>
 </html>
