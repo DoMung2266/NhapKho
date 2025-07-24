@@ -117,7 +117,7 @@
     "gia": 23,
     "quyCach": "200X122X154",
     "hinh": "",
-    "loaiGo": "XÃ  Cá»«",
+    "loaiGo": "XÃÂ  CÃ¡Â»Â«",
     "phanLoai": "Khay",
     "kichThuocThung": "",
     "khoiLuongThung": "",
@@ -129,5 +129,10 @@
     "maSo": "A-109",
     "hang": "ASAHI",
     "timestamp": "2025-07-24T08:04:42.727Z"
+  },
+  {
+    "maSo": "A-109",
+    "hang": "ASAHI",
+    "timestamp": "2025-07-24T08:04:44.488Z"
   }
 ]
