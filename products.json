@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "stt": "1",
+    "maSo": "A-101",
+    "hang": "Asahi",
+    "tenEN": "Tray",
+    "tenVN": "Khay bo",
+    "tenThuongGoi": "Khay bo",
+    "gia": 12,
+    "quyCach": "200x200x10",
+    "hinh": "",
+    "loaiGo": "Xa Cu",
+    "phanLoai": "Khay",
+    "kichThuocThung": "30x30x30",
+    "khoiLuongThung": "20",
+    "soSPTrongThung": 30,
+    "ghiChu": "",
+    "timestamp": "2025-07-24T04:36:24.888Z"
+  }
+]
