@@ -1,34 +1,41 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <input type="password" id="tokenInput" placeholder="🔐 Nhập GitHub Token..." style="width: 100%; margin-bottom: 1rem;">
-  <title>Nhập sản phẩm lên GitHub</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>📦 Nhập sản phẩm có ảnh</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       font-family: sans-serif;
       padding: 20px;
-      max-width: 600px;
+      max-width: 100%;
       margin: auto;
     }
     h1 {
       text-align: center;
       margin-bottom: 20px;
     }
-    label {
-      display: block;
-      margin-top: 10px;
-      font-weight: bold;
+    input[type="text"], input[type="number"], input[type="password"] {
+      width: 120px;
+      padding: 4px;
     }
-    input, textarea {
+    input[type="file"] {
+      width: 150px;
+    }
+    table {
+      border-collapse: collapse;
       width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      box-sizing: border-box;
+      overflow-x: auto;
+    }
+    th, td {
+      border: 1px solid #999;
+      padding: 6px;
+      text-align: center;
+      vertical-align: middle;
     }
     button {
       margin-top: 20px;
+      margin-right: 10px;
       padding: 10px 16px;
       font-size: 1em;
       background-color: #3498db;
@@ -44,29 +51,68 @@
       font-weight: bold;
       color: green;
     }
+    #tokenInput {
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 8px;
+    }
   </style>
 </head>
 <body>
-  <h1>📦 Nhập sản phẩm mới</h1>
+  <h1>📋 Nhập sản phẩm kèm hình ảnh</h1>
 
-  <form id="productForm">
-    <label for="name">📝 Tên sản phẩm</label>
-    <input type="text" id="name" required>
+  <!-- 🔐 Nhập GitHub Token -->
+  <input type="password" id="tokenInput" placeholder="🔐 Nhập GitHub Token..." />
 
-    <label for="description">📄 Mô tả</label>
-    <textarea id="description" rows="4"></textarea>
+  <table id="productTable">
+    <thead>
+      <tr>
+        <th>STT</th>
+        <th>Mã Số</th>
+        <th>Hãng</th>
+        <th>Tên tiếng Anh</th>
+        <th>Tên Tiếng Việt</th>
+        <th>Tên Thường gọi</th>
+        <th>Giá</th>
+        <th>Quy Cách</th>
+        <th>Ảnh sản phẩm</th>
+        <th>Loại Gỗ</th>
+        <th>Phân Loại</th>
+        <th>Kích Thước Thùng</th>
+        <th>Khối Lượng Cả Thùng</th>
+        <th>Số SP/1 Thùng</th>
+        <th>Ghi Chú</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td><input /></td>
+        <td><input /></td>
+        <td><input /></td>
+        <td><input /></td>
+        <td><input /></td>
+        <td><input type="number" /></td>
+        <td><input /></td>
+        <td>
+          <input type="file" onchange="handleImageUpload(this)" />
+          <br />
+          <input class="image-link" />
+        </td>
+        <td><input /></td>
+        <td><input /></td>
+        <td><input /></td>
+        <td><input /></td>
+        <td><input type="number" /></td>
+        <td><input /></td>
+      </tr>
+    </tbody>
+  </table>
 
-    <label for="price">💰 Giá</label>
-    <input type="number" id="price" required>
-
-    <label for="quantity">🔢 Số lượng</label>
-    <input type="number" id="quantity" value="1" min="1">
-
-    <label for="image">🖼️ Link hình ảnh</label>
-    <input type="text" id="image">
-
-    <button type="submit">📤 Lưu lên GitHub</button>
-  </form>
+  <button onclick="addRow()">➕ Thêm dòng mới</button>
+  <button onclick="removeLastRow()">❌ Xóa dòng cuối</button>
+  <button onclick="loadProductsFromGitHub()">📥 Tải dữ liệu từ GitHub</button>
+  <button onclick="submitToGitHub()">📤 Lưu toàn bộ lên GitHub</button>
 
   <div class="status" id="status"></div>
 
