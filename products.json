@@ -106,5 +106,23 @@
     "soSPTrongThung": 30,
     "ghiChu": "",
     "timestamp": "2025-07-24T04:51:48.067Z"
+  },
+  {
+    "stt": "1",
+    "maSo": "A11111",
+    "hang": "ASAHI",
+    "tenEN": "Khay",
+    "tenVN": "Khay",
+    "tenThuongGoi": "Khay",
+    "gia": 23,
+    "quyCach": "200X122X154",
+    "hinh": "",
+    "loaiGo": "Xà Cừ",
+    "phanLoai": "Khay",
+    "kichThuocThung": "",
+    "khoiLuongThung": "",
+    "soSPTrongThung": 0,
+    "ghiChu": "",
+    "timestamp": "2025-07-24T07:08:28.444Z"
   }
 ]
