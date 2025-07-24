@@ -1,3 +1,46 @@
+// 🧠 Tự động khôi phục token khi mở trang
+window.addEventListener("DOMContentLoaded", () => {
+  const savedToken = localStorage.getItem("githubToken");
+  if (savedToken) {
+    document.getElementById("tokenInput").value = savedToken;
+  }
+});
+
+// 🧹 Xóa token khỏi Local Storage và giao diện
+function clearToken() {
+  localStorage.removeItem("githubToken");
+  document.getElementById("tokenInput").value = "";
+  document.getElementById("jsonStatus").textContent = "🧹 Token đã được xoá khỏi bộ nhớ.";
+  document.getElementById("jsonStatus").style.color = "gray";
+}
+
+function clearImage() {
+  const imageInput = document.getElementById("imageInput");
+  const preview = document.getElementById("previewImage");
+  const imageStatus = document.getElementById("imageStatus");
+
+  imageInput.value = "";
+  preview.src = "";
+  preview.style.display = "none";
+  imageStatus.textContent = "🗑 Ảnh đã được xoá.";
+  imageStatus.style.color = "gray";
+}
+
+function showPreview() {
+  const file = document.getElementById("imageInput").files[0];
+  const preview = document.getElementById("previewImage");
+  if (!file) {
+    preview.style.display = "none";
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = e => {
+    preview.src = e.target.result;
+    preview.style.display = "block";
+  };
+  reader.readAsDataURL(file);
+}
+
 async function fetchJSON(token) {
   const res = await fetch(apiUrl, {
     headers: {
@@ -22,7 +65,6 @@ async function saveJSON(token, newData, sha) {
     content: base64,
     ...(sha ? { sha } : {})
   };
-
   return fetch(apiUrl, {
     method: "PUT",
     headers: {
@@ -33,45 +75,15 @@ async function saveJSON(token, newData, sha) {
   });
 }
 
-function showPreview() {
-  const file = document.getElementById("imageInput").files[0];
-  const preview = document.getElementById("previewImage");
-
-  if (!file) {
-    preview.style.display = "none";
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    preview.src = e.target.result;
-    preview.style.display = "block";
-  };
-  reader.readAsDataURL(file);
-}
-
-function clearImage() {
-  const imageInput = document.getElementById("imageInput");
-  const preview = document.getElementById("previewImage");
-  const imageStatus = document.getElementById("imageStatus");
-
-  imageInput.value = "";
-  preview.src = "";
-  preview.style.display = "none";
-  imageStatus.textContent = "🗑 Ảnh đã được xoá.";
-  imageStatus.style.color = "gray";
-}
-
-
-
 async function saveProduct() {
-  const token = document.getElementById("tokenInput").value.trim();
+  const tokenInput = document.getElementById("tokenInput");
+  const token = tokenInput.value.trim();
   const maSo = document.getElementById("maSoInput").value.trim();
   const hang = document.getElementById("hangInput").value.trim();
   const quyCach = document.getElementById("quyCachInput").value.trim();
   const loaiGo = document.getElementById("loaiGoInput").value.trim();
+  const khac = document.getElementById("khacInput").value.trim();
   const file = document.getElementById("imageInput").files[0];
-  const preview = document.getElementById("previewImage");
   const imageStatus = document.getElementById("imageStatus");
   const jsonStatus = document.getElementById("jsonStatus");
 
@@ -82,6 +94,7 @@ async function saveProduct() {
     return;
   }
 
+  localStorage.setItem("githubToken", token);
   imageStatus.textContent = "";
   jsonStatus.textContent = "⏳ Đang xử lý...";
   jsonStatus.style.color = "orange";
@@ -89,7 +102,6 @@ async function saveProduct() {
   let imageLink = "";
 
   try {
-    // 📤 Upload ảnh với tên an toàn
     if (file) {
       const ext = file.name.split(".").pop();
       const folder = `images/${hang}/`;
@@ -98,7 +110,6 @@ async function saveProduct() {
       let imgUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${imgPath}`;
       let suffix = 1;
 
-      // 🔁 Kiểm tra trùng tên ảnh ➜ thêm số nếu cần
       while (true) {
         const checkRes = await fetch(imgUrl, {
           method: "GET",
@@ -140,36 +151,23 @@ async function saveProduct() {
       }
     }
 
-    // 📋 Tải dữ liệu & kiểm tra mã số
     const { data, sha } = await fetchJSON(token);
     const index = data.findIndex(item => item.maSo === maSo);
 
     if (index >= 0) {
       const existing = data[index];
       let updated = false;
-
-      if (!existing.hang && hang) {
-        existing.hang = hang;
-        updated = true;
-      }
-      if (!existing.quyCach && quyCach) {
-        existing.quyCach = quyCach;
-        updated = true;
-      }
-      if (!existing.loaiGo && loaiGo) {
-        existing.loaiGo = loaiGo;
-        updated = true;
-      }
-      if (!existing.hinh && imageLink) {
-        existing.hinh = imageLink;
-        updated = true;
-      }
+      if (!existing.hang && hang) { existing.hang = hang; updated = true; }
+      if (!existing.quyCach && quyCach) { existing.quyCach = quyCach; updated = true; }
+      if (!existing.loaiGo && loaiGo) { existing.loaiGo = loaiGo; updated = true; }
+      if (!existing.hinh && imageLink) { existing.hinh = imageLink; updated = true; }
+      if (!existing.khac && khac) { existing.khac = khac; updated = true; }
 
       if (updated) {
         data[index] = existing;
         const resSave = await saveJSON(token, data, sha);
         if (resSave.ok) {
-          jsonStatus.textContent = "✅ Đã cập nhật thông tin cho mã số đã tồn tại!";
+          jsonStatus.textContent = "✅ Đã cập nhật thông tin bổ sung cho mã số đã tồn tại!";
           jsonStatus.style.color = "green";
         } else {
           const err = await resSave.json();
@@ -180,23 +178,21 @@ async function saveProduct() {
         jsonStatus.textContent = "⚠️ Mã số đã đầy đủ thông tin, không cần cập nhật.";
         jsonStatus.style.color = "orange";
       }
-
       return;
     }
 
-    // 🆕 Ghi sản phẩm mới nếu chưa tồn tại
     const newItem = {
       maSo,
       hang,
       hinh: imageLink,
       quyCach,
       loaiGo,
+      khac,
       timestamp: new Date().toISOString()
     };
 
     const combined = data.concat(newItem);
     const resSave = await saveJSON(token, combined, sha);
-
     if (resSave.ok) {
       jsonStatus.textContent = "✅ Thông tin sản phẩm đã được ghi!";
       jsonStatus.style.color = "green";
