@@ -28,7 +28,7 @@
     "hang": "ASAHI",
     "hinh": "https://raw.githubusercontent.com/DoMung2266/NhapKho/main/images/ASAHI/A-104.jpg",
     "quyCach": "300x120x15",
-    "loaiGo": "XÃÂ  CÃ¡Â»Â«",
+    "loaiGo": "XÃÂÃÂ  CÃÂ¡ÃÂ»ÃÂ«",
     "timestamp": "2025-07-24T09:05:11.713Z"
   },
   {
@@ -36,7 +36,7 @@
     "hang": "ASAHI",
     "hinh": "https://raw.githubusercontent.com/DoMung2266/NhapKho/main/images/ASAHI/A-105.jpg",
     "quyCach": "300x120x16",
-    "loaiGo": "XÃ  Cá»«",
+    "loaiGo": "XÃÂ  CÃ¡Â»Â«",
     "timestamp": "2025-07-24T09:10:07.930Z"
   },
   {
@@ -46,5 +46,13 @@
     "quyCach": "300x150x15",
     "loaiGo": "xa cu",
     "timestamp": "2025-07-24T09:16:58.272Z"
+  },
+  {
+    "maSo": "A-107",
+    "hang": "ASAHI",
+    "hinh": "",
+    "quyCach": "300x100x23",
+    "loaiGo": "Xa Cu",
+    "timestamp": "2025-07-24T09:23:52.286Z"
   }
 ]
