@@ -50,6 +50,20 @@ function showPreview() {
   reader.readAsDataURL(file);
 }
 
+function clearImage() {
+  const imageInput = document.getElementById("imageInput");
+  const preview = document.getElementById("previewImage");
+  const imageStatus = document.getElementById("imageStatus");
+
+  imageInput.value = "";
+  preview.src = "";
+  preview.style.display = "none";
+  imageStatus.textContent = "🗑 Ảnh đã được xoá.";
+  imageStatus.style.color = "gray";
+}
+
+
+
 async function saveProduct() {
   const token = document.getElementById("tokenInput").value.trim();
   const maSo = document.getElementById("maSoInput").value.trim();
