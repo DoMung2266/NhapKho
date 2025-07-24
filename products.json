@@ -15,6 +15,24 @@
     "khoiLuongThung": "20",
     "soSPTrongThung": 30,
     "ghiChu": "",
-    "timestamp": "2025-07-24T04:38:01.006Z"
+    "timestamp": "2025-07-24T04:39:20.517Z"
+  },
+  {
+    "stt": "2",
+    "maSo": "A-102",
+    "hang": "Asahi",
+    "tenEN": "Tray",
+    "tenVN": "Khay bo",
+    "tenThuongGoi": "Khay bo",
+    "gia": 13,
+    "quyCach": "202x202x10",
+    "hinh": "",
+    "loaiGo": "Xa Cu",
+    "phanLoai": "Khay",
+    "kichThuocThung": "31x31x30",
+    "khoiLuongThung": "20",
+    "soSPTrongThung": 30,
+    "ghiChu": "",
+    "timestamp": "2025-07-24T04:39:20.517Z"
   }
 ]
