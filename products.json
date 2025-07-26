@@ -6,16 +6,18 @@
     "quyCach": "200x110x12",
     "loaiGo": "Beech",
     "khac": "",
-    "timestamp": "2025-07-24T10:12:34.487Z"
+    "timestamp": "2025-07-24T10:12:34.487Z",
+    "imagePath": "CBC-0012-1.jpg"
   },
   {
     "maSo": "AW17-1",
     "hang": "KhongBiet",
     "hinh": "https://raw.githubusercontent.com/DoMung2266/NhapKho/main/images/KhongBiet/AW17-1.jpeg",
-    "quyCach": "200000",
+    "quyCach": "",
     "loaiGo": "Beech",
     "khac": "",
-    "timestamp": "2025-07-24T11:16:31.964Z"
+    "timestamp": "2025-07-24T11:16:31.964Z",
+    "imagePath": "AW17-1.jpg"
   },
   {
     "maSo": "LW04330003",
@@ -24,7 +26,8 @@
     "quyCach": "360x202x18",
     "loaiGo": "Xa cu",
     "khac": "",
-    "timestamp": "2025-07-24T11:17:49.447Z"
+    "timestamp": "2025-07-24T11:17:49.447Z",
+    "imagePath": "LW04330003.jpg"
   },
   {
     "maSo": "A-101W",
@@ -33,7 +36,8 @@
     "quyCach": "300x144x16",
     "loaiGo": "Xa Cu",
     "khac": "",
-    "timestamp": "2025-07-24T15:26:16.228Z"
+    "timestamp": "2025-07-24T15:26:16.228Z",
+    "imagePath": "A-101W.jpg"
   },
   {
     "maSo": "A-102",
@@ -42,7 +46,8 @@
     "quyCach": "300x144x20",
     "loaiGo": "Xa cu",
     "khac": "",
-    "timestamp": "2025-07-24T15:29:45.228Z"
+    "timestamp": "2025-07-24T15:29:45.228Z",
+    "imagePath": "A-102.jpg"
   },
   {
     "maSo": "A-103",
@@ -51,7 +56,8 @@
     "quyCach": "330x176x20",
     "loaiGo": "Xa cu",
     "khac": "",
-    "timestamp": "2025-07-24T15:37:16.731Z"
+    "timestamp": "2025-07-24T15:37:16.731Z",
+    "imagePath": "A-103.jpg"
   },
   {
     "maSo": "A-104",
@@ -60,7 +66,8 @@
     "quyCach": "344x184x20",
     "loaiGo": "Xa cu",
     "khac": "",
-    "timestamp": "2025-07-24T15:42:48.164Z"
+    "timestamp": "2025-07-24T15:42:48.164Z",
+    "imagePath": "A-104.jpg"
   },
   {
     "maSo": "A-105",
@@ -69,7 +76,8 @@
     "quyCach": "368x216x20",
     "loaiGo": "Xa cu",
     "khac": "",
-    "timestamp": "2025-07-24T15:46:58.787Z"
+    "timestamp": "2025-07-24T15:46:58.787Z",
+    "imagePath": "A-105.jpg"
   },
   {
     "maSo": "A-106W",
@@ -78,7 +86,8 @@
     "quyCach": "376x220x20",
     "loaiGo": "Xa cu",
     "khac": "",
-    "timestamp": "2025-07-24T15:49:13.428Z"
+    "timestamp": "2025-07-24T15:49:13.428Z",
+    "imagePath": "A-106W.jpg"
   },
   {
     "maSo": "A-110W",
@@ -87,7 +96,8 @@
     "quyCach": "296x205x20",
     "loaiGo": "Xa cu",
     "khac": "",
-    "timestamp": "2025-07-24T16:31:30.864Z"
+    "timestamp": "2025-07-24T16:31:30.864Z",
+    "imagePath": "A-110W.jpg"
   },
   {
     "maSo": "601720",
@@ -96,7 +106,8 @@
     "loaiGo": "Beech",
     "khac": "Laser",
     "hinh": "https://raw.githubusercontent.com/DoMung2266/NhapKho/main/images/SADOMAIN/601720.jpg",
-    "timestamp": "2025-07-26T07:52:27.570Z"
+    "timestamp": "2025-07-26T07:52:27.570Z",
+    "imagePath": "601720.jpg"
   },
   {
     "maSo": "601721",
@@ -105,6 +116,7 @@
     "loaiGo": "Beech",
     "khac": "Laser",
     "hinh": "https://raw.githubusercontent.com/DoMung2266/NhapKho/main/images/SADOMAIN/601721.jpg",
-    "timestamp": "2025-07-26T07:55:25.260Z"
+    "timestamp": "2025-07-26T07:55:25.260Z",
+    "imagePath": "601721.jpg"
   }
 ]
