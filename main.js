@@ -6,41 +6,15 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// 🧹 Xóa token khỏi Local Storage và giao diện
+// 🧹 Xóa token
 function clearToken() {
   localStorage.removeItem("githubToken");
   document.getElementById("tokenInput").value = "";
-  document.getElementById("jsonStatus").textContent = "🧹 Token đã được xoá khỏi bộ nhớ.";
+  document.getElementById("jsonStatus").textContent = "❎ Token đã được xoá khỏi bộ nhớ.";
   document.getElementById("jsonStatus").style.color = "gray";
 }
 
-function clearImage() {
-  const imageInput = document.getElementById("imageInput");
-  const preview = document.getElementById("previewImage");
-  const imageStatus = document.getElementById("imageStatus");
-
-  imageInput.value = "";
-  preview.src = "";
-  preview.style.display = "none";
-  imageStatus.textContent = "🗑 Ảnh đã được xoá.";
-  imageStatus.style.color = "gray";
-}
-
-function showPreview() {
-  const file = document.getElementById("imageInput").files[0];
-  const preview = document.getElementById("previewImage");
-  if (!file) {
-    preview.style.display = "none";
-    return;
-  }
-  const reader = new FileReader();
-  reader.onload = e => {
-    preview.src = e.target.result;
-    preview.style.display = "block";
-  };
-  reader.readAsDataURL(file);
-}
-
+// 📦 API tương tác GitHub
 async function fetchJSON(token) {
   const res = await fetch(apiUrl, {
     headers: {
@@ -75,17 +49,18 @@ async function saveJSON(token, newData, sha) {
   });
 }
 
+// 💾 Lưu sản phẩm và upload ảnh
 async function saveProduct() {
-  const tokenInput = document.getElementById("tokenInput");
-  const token = tokenInput.value.trim();
+  const token = document.getElementById("tokenInput").value.trim();
   const maSo = document.getElementById("maSoInput").value.trim();
   const hang = document.getElementById("hangInput").value.trim();
   const quyCach = document.getElementById("quyCachInput").value.trim();
   const loaiGo = document.getElementById("loaiGoInput").value.trim();
   const khac = document.getElementById("khacInput").value.trim();
-  const file = document.getElementById("imageInput").files[0];
   const imageStatus = document.getElementById("imageStatus");
   const jsonStatus = document.getElementById("jsonStatus");
+
+  const rawFile = window.fileResized || document.getElementById("imageInput").files[0];
 
   if (!token || !maSo || !hang) {
     imageStatus.textContent = "";
@@ -102,8 +77,8 @@ async function saveProduct() {
   let imageLink = "";
 
   try {
-    if (file) {
-      const ext = file.name.split(".").pop();
+    if (rawFile) {
+      const ext = "jpg";
       const folder = `images/${hang}/`;
       let baseName = maSo;
       let imgPath = `${folder}${baseName}.${ext}`;
@@ -125,7 +100,7 @@ async function saveProduct() {
       const reader = new FileReader();
       const base64 = await new Promise(resolve => {
         reader.onload = e => resolve(e.target.result.split(",")[1]);
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(rawFile);
       });
 
       const resImg = await fetch(imgUrl, {
@@ -166,41 +141,28 @@ async function saveProduct() {
       if (updated) {
         data[index] = existing;
         const resSave = await saveJSON(token, data, sha);
-        if (resSave.ok) {
-          jsonStatus.textContent = "✅ Đã cập nhật thông tin bổ sung cho mã số đã tồn tại!";
-          jsonStatus.style.color = "green";
-        } else {
-          const err = await resSave.json();
-          jsonStatus.textContent = `❌ Cập nhật thất bại: ${err.message || "Không rõ lỗi"}`;
-          jsonStatus.style.color = "red";
-        }
+        jsonStatus.textContent = resSave.ok
+          ? "✅ Đã cập nhật thông tin bổ sung!"
+          : `❌ Cập nhật thất bại: ${(await resSave.json()).message || "Không rõ lỗi"}`;
+        jsonStatus.style.color = resSave.ok ? "green" : "red";
       } else {
-        jsonStatus.textContent = "⚠️ Mã số đã đầy đủ thông tin, không cần cập nhật.";
+        jsonStatus.textContent = "⚠️ Mã số đã đầy đủ thông tin.";
         jsonStatus.style.color = "orange";
       }
       return;
     }
 
     const newItem = {
-      maSo,
-      hang,
+      maSo, hang, quyCach, loaiGo, khac,
       hinh: imageLink,
-      quyCach,
-      loaiGo,
-      khac,
       timestamp: new Date().toISOString()
     };
 
-    const combined = data.concat(newItem);
-    const resSave = await saveJSON(token, combined, sha);
-    if (resSave.ok) {
-      jsonStatus.textContent = "✅ Thông tin sản phẩm đã được ghi!";
-      jsonStatus.style.color = "green";
-    } else {
-      const err = await resSave.json();
-      jsonStatus.textContent = `❌ Ghi sản phẩm thất bại: ${err.message || "Không rõ lỗi"}`;
-      jsonStatus.style.color = "red";
-    }
+    const resSave = await saveJSON(token, data.concat(newItem), sha);
+    jsonStatus.textContent = resSave.ok
+      ? "✅ Thông tin sản phẩm đã được ghi!"
+      : `❌ Ghi thất bại: ${(await resSave.json()).message || "Không rõ lỗi"}`;
+    jsonStatus.style.color = resSave.ok ? "green" : "red";
 
   } catch (error) {
     console.error("❌ Lỗi xử lý:", error);
