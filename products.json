@@ -128,5 +128,14 @@
     "hinh": "https://raw.githubusercontent.com/DoMung2266/NhapKho/main/images/PAVIDEN/CB-0025-1.jpg",
     "timestamp": "2025-07-29T07:59:37.569Z",
     "imagePath": "CB-0025-1.jpg"
+  },
+  {
+    "maSo": "CB-7301-1",
+    "hang": "PAVIDEN",
+    "quyCach": "280x280x22",
+    "loaiGo": "Beech+Chery",
+    "khac": "Co Nam Chan, in muc",
+    "hinh": "https://raw.githubusercontent.com/DoMung2266/NhapKho/main/images/PAVIDEN/CB-7301-1.jpg",
+    "timestamp": "2025-07-29T09:16:20.634Z"
   }
 ]
