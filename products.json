@@ -164,5 +164,14 @@
     "khac": "Ke Thot, in Laser",
     "hinh": "https://raw.githubusercontent.com/DoMung2266/NhapKho/main/images/PAVIDEN/CBR-2062-1.jpg",
     "timestamp": "2025-07-29T10:17:13.688Z"
+  },
+  {
+    "maSo": "DS-6061-1",
+    "hang": "PAVIDEN",
+    "quyCach": "125x117x15",
+    "loaiGo": "Beech",
+    "khac": "",
+    "hinh": "https://raw.githubusercontent.com/DoMung2266/NhapKho/main/images/PAVIDEN/DS-6061-1.jpg",
+    "timestamp": "2025-07-29T11:14:25.233Z"
   }
 ]
