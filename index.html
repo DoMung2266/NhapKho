@@ -2,24 +2,50 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <title>📦 Ghi sản phẩm & Upload ảnh</title>
+  <title>📦 Thêm sản phẩm mới</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       font-family: sans-serif;
       padding: 20px;
-      max-width: 600px;
+      max-width: 700px;
       margin: auto;
     }
+
+    .top-nav {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .btn-go {
+      flex: 1;
+      background: #f39c12;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      text-decoration: none;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn-go:hover {
+      background: #e67e22;
+    }
+
     h1 {
       text-align: center;
-      margin-bottom: 20px;
+      margin: 20px 0;
     }
+
     label {
       display: block;
       margin-top: 10px;
       font-weight: bold;
     }
+
     input[type="text"],
     input[type="password"],
     input[type="file"],
@@ -27,15 +53,19 @@
       width: 100%;
       padding: 8px;
       margin-top: 4px;
+      box-sizing: border-box;
     }
+
     .row {
       display: flex;
       gap: 8px;
       align-items: center;
     }
+
     .row input {
       flex: 1;
     }
+
     button {
       margin-top: 20px;
       padding: 10px 16px;
@@ -45,13 +75,16 @@
       border: none;
       cursor: pointer;
     }
+
     button:hover {
       background-color: #2980b9;
     }
+
     .status {
       margin-top: 10px;
       font-weight: bold;
     }
+
     #previewImage {
       margin-top: 10px;
       max-width: 150px;
@@ -63,6 +96,11 @@
 </head>
 <body>
 
+  <div class="top-nav">
+    <button onclick="window.location.href='list.html'" class="btn-go">📋 Tìm kiếm sản phẩm</button>
+    <button onclick="window.location.href='editProducts.html'" class="btn-go">✏️ Chỉnh sửa sản phẩm</button>
+  </div>
+
   <h1>📋 Thêm sản phẩm mới</h1>
 
   <label>🔐 GitHub Token</label>
@@ -72,7 +110,7 @@
   </div>
 
   <label>📌 Mã Số</label>
-  <input type="text" id="maSoInput" placeholder="VD: A-101" />
+  <input type="text" id="maSoInput" placeholder="VD: A-101W" />
 
   <label>🏢 Hãng</label>
   <select id="hangInput">
@@ -86,6 +124,8 @@
     <option>OSAKA</option>
     <option>HO</option>
     <option>TRUNGBUU</option>
+	<option>TruongSon</option>
+	<option>HangVietNam</option>
     <option>KhongBiet</option>
   </select>
 
@@ -93,14 +133,14 @@
   <input type="text" id="quyCachInput" placeholder="VD: 300x120x15" />
 
   <label>🌲 Loại gỗ</label>
-  <input type="text" id="loaiGoInput" placeholder="VD: beech, xa cu, thong (viết không dấu nha)" />
+  <input type="text" id="loaiGoInput" placeholder="VD: (ghi không dấu) beech, xa cu, thong " />
 
   <label>📝 Thông tin khác</label>
-  <input type="text" id="khacInput" placeholder="VD: hàng mẫu, ghi chú thêm..." />
+  <input type="text" id="khacInput" placeholder="VD:(ghi không dấu) in laser, Hop Giay , ghi chu them ..." />
 
-  <label>📷 Chọn ảnh sản phẩm</label>
+  <label>📷 Chọn ảnh từ máy</label>
   <input type="file" id="imageInput" onchange="showPreview()" />
-  <button onclick="clearImage()">🗑 Xóa ảnh đã chọn</button>
+  <button onclick="clearImage()">🗑 Xóa ảnh</button>
 
   <img id="previewImage" alt="Preview ảnh sản phẩm" />
 
@@ -108,28 +148,51 @@
   <div class="status" id="jsonStatus"></div>
 
   <button onclick="saveProduct()">💾 Ghi sản phẩm + upload ảnh</button>
-  <button onclick="window.location.href='list.html'">📋 Tìm kiếm sản phẩm</button>
-  <a href="editProducts.html" class="btn-go">✏️ Chỉnh sửa sản phẩm</a>
 
-<style>
-  .btn-go {
-    display: inline-block;
-    background: #f39c12;
-    color: white;
-    padding: 8px 12px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-  }
-  .btn-go:hover {
-    background: #e67e22;
-  }
-</style>
-
-  <!-- 📦 Script xử lý -->
+  <!-- Script -->
   <script src="config.js"></script>
   <script src="imageUtils.js"></script>
   <script src="main.js"></script>
+
+  <script>
+    function showPreview() {
+      const fileInput = document.getElementById('imageInput');
+      const preview = document.getElementById('previewImage');
+      const file = fileInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          preview.src = reader.result;
+          preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function updatePreview() {
+      const url = document.getElementById('imagePathInput').value.trim();
+      const preview = document.getElementById('previewImage');
+      if (url) {
+        preview.src = url;
+        preview.style.display = 'block';
+      } else {
+        preview.src = "";
+        preview.style.display = 'none';
+      }
+    }
+
+    function clearImage() {
+      document.getElementById('imageInput').value = "";
+      document.getElementById('imagePathInput').value = "";
+      const preview = document.getElementById('previewImage');
+      preview.src = "";
+      preview.style.display = 'none';
+    }
+
+    function clearToken() {
+      document.getElementById('tokenInput').value = "";
+    }
+  </script>
 
 </body>
 </html>
