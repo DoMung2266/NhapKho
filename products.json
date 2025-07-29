@@ -124,8 +124,9 @@
     "hang": "PAVIDEN",
     "quyCach": "330x210x8",
     "loaiGo": "Beech",
-    "khac": "Có Laser",
+    "khac": "Laser,",
     "hinh": "https://raw.githubusercontent.com/DoMung2266/NhapKho/main/images/PAVIDEN/CB-0025-1.jpg",
-    "timestamp": "2025-07-29T07:59:37.569Z"
+    "timestamp": "2025-07-29T07:59:37.569Z",
+    "imagePath": "CB-0025-1.jpg"
   }
 ]
