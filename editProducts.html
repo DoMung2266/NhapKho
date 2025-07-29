@@ -1,3 +1,4 @@
+<!-- ✅ file editProducts.html (phiên bản tối ưu) -->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -29,7 +30,6 @@
 <body>
 
   <a href="index.html" class="btn-back">↩️📦 Thêm sản phẩm mới</a>
-
   <h2>✏️ Chỉnh sửa sản phẩm</h2>
 
   <input type="password" id="tokenInput" placeholder="🔐 Nhập GitHub Token..." />
@@ -44,18 +44,19 @@
 
   <script src="config.js"></script>
   <script>
-    const repoRaw = "https://raw.githubusercontent.com/nguyenhuuanh0707/VietWeb/main/images";
     let products = [], sha;
 
     window.onload = async () => {
-      const saved = localStorage.getItem("githubToken");
-      if (saved) tokenInput.value = saved;
+      const savedToken = localStorage.getItem("githubToken");
+      if (savedToken) tokenInput.value = savedToken;
 
-      const res = await fetch(apiUrl, { headers: { Accept: "application/vnd.github+json" } });
+      const res = await fetch(apiUrl, {
+        headers: { Accept: "application/vnd.github+json" }
+      });
       const json = await res.json();
       sha = json.sha;
       products = JSON.parse(atob(json.content));
-      products = products.map(p => ({ ...p, imagePath: p.imagePath || `${p.maSo}.jpg` }));
+
       buildFilters();
       renderTable(products);
     };
@@ -63,17 +64,12 @@
     function buildFilters() {
       const hangs = [...new Set(products.map(p => p.hang).filter(Boolean))].sort();
       const loaiGos = [...new Set(products.map(p => p.loaiGo).filter(Boolean))].sort();
+
       hangs.forEach(h => {
-        const opt = document.createElement("option");
-        opt.value = h;
-        opt.textContent = h;
-        hangFilter.appendChild(opt);
+        hangFilter.innerHTML += `<option value="${h}">${h}</option>`;
       });
       loaiGos.forEach(g => {
-        const opt = document.createElement("option");
-        opt.value = g;
-        opt.textContent = g;
-        goFilter.appendChild(opt);
+        goFilter.innerHTML += `<option value="${g}">${g}</option>`;
       });
     }
 
@@ -81,11 +77,13 @@
       const text = textFilter.value.toLowerCase();
       const hang = hangFilter.value;
       const go = goFilter.value;
+
       const filtered = products.filter(p =>
         (!text || p.maSo?.toLowerCase().includes(text) || p.hang?.toLowerCase().includes(text)) &&
         (!hang || p.hang === hang) &&
         (!go || p.loaiGo === go)
       );
+
       renderTable(filtered);
     }
 
@@ -93,10 +91,12 @@
       let html = `<table><thead><tr>
         <th>Mã số</th><th>Hãng</th><th>Quy cách</th><th>Loại gỗ</th><th>Ghi chú</th><th>Ảnh</th><th>Lưu</th>
       </tr></thead><tbody>`;
+
       list.forEach((p, i) => {
-        const img = p.imagePath
-          ? `<img src="${repoRaw}/${p.imagePath}" alt="Ảnh sản phẩm" />`
+        const img = p.hinh
+          ? `<img src="${p.hinh}" alt="Ảnh sản phẩm" />`
           : `<span style="color:gray; font-style:italic;">Không có ảnh</span>`;
+
         html += `<tr>
           <td>${p.maSo}</td>
           <td>${p.hang}</td>
@@ -107,6 +107,7 @@
           <td><button class="btn-save" onclick="saveAll()">💾</button></td>
         </tr>`;
       });
+
       html += "</tbody></table>";
       tableContainer.innerHTML = html;
     }
@@ -114,10 +115,12 @@
     async function saveAll() {
       const token = tokenInput.value.trim();
       if (!token) return setStatus("⚠️ Vui lòng nhập token", "red");
+
       localStorage.setItem("githubToken", token);
 
       const content = btoa(unescape(encodeURIComponent(JSON.stringify(products, null, 2))));
       const body = { message: "💾 Cập nhật sản phẩm", content, sha };
+
       const res = await fetch(apiUrl, {
         method: "PUT",
         headers: {
@@ -128,8 +131,7 @@
       });
 
       if (res.ok) {
-        const first = products[0]?.maSo || "sản phẩm";
-        setStatus(`✅ Đã lưu  thành công`, "green");
+        setStatus(`✅ Lưu thành công!`, "green");
       } else {
         setStatus("❌ Lỗi khi lưu sản phẩm", "red");
       }
