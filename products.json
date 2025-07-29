@@ -118,5 +118,14 @@
     "hinh": "https://raw.githubusercontent.com/DoMung2266/NhapKho/main/images/SADOMAIN/601721.jpg",
     "timestamp": "2025-07-26T07:55:25.260Z",
     "imagePath": "601721.jpg"
+  },
+  {
+    "maSo": "CB-0025-1",
+    "hang": "PAVIDEN",
+    "quyCach": "330x210x8",
+    "loaiGo": "Beech",
+    "khac": "Có Laser",
+    "hinh": "https://raw.githubusercontent.com/DoMung2266/NhapKho/main/images/PAVIDEN/CB-0025-1.jpg",
+    "timestamp": "2025-07-29T07:59:37.569Z"
   }
 ]
